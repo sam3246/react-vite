@@ -1,105 +1,72 @@
 import { useEffect, useState } from "react";
-import imagen1 from "../assets/images/imagen1.jpg";
-import imagen2 from "../assets/images/imagen2.jpg";
-import imagen3 from "../assets/images/imagen3.jpg";
-import imagen4 from "../assets/images/imagen4.jpg";
-import imagen5 from "../assets/images/imagen5.avif";
-import imagen6 from "../assets/images/imagen6.jpg";
-import imagen7 from "../assets/images/imagen7.jpg";
-import imagen8 from "../assets/images/imagen8.jpg";
-import imagen9 from "../assets/images/imagen9.jpg";
-import imagen10 from "../assets/images/imagen10.jpg";
 
-const images = [
-  { id: 1, image: imagen1, title: "Desarrollo de Software",
-    description: "Creamos soluciones tecnológicas para las necesidades empresariales." },
-  { id: 2, image: imagen2, title: "Inteligencia Artificial",
-    description: "Tecnologías inteligentes que transforman nuestro futuro." },
-  { id: 3, image: imagen3, title: "Computación",
-    description: "Herramientas informáticas para mejorar los procesos." },
-  { id: 4, image: imagen4, title: "Redes Informáticas",
-    description: "Conectividad y comunicación entre dispositivos." },
-  { id: 5, image: imagen5, title: "Seguridad Informática",
-    description: "Protección de los datos y recursos digitales." },
-  { id: 6, image: imagen6, title: "Innovación Tecnológica",
-    description: "Nuevas ideas para solucionar problemas del entorno." },
-  { id: 7, image: imagen7, title: "Transformación Digital",
-    description: "Modernización de procesos mediante tecnologías digitales." },
-  { id: 8, image: imagen8, title: "Servicios Tecnológicos",
-    description: "Soluciones tecnológicas para empresas y organizaciones." },
-  { id: 9, image: imagen9, title: "Infraestructura Tecnológica",
-    description: "Recursos tecnológicos para garantizar la operación." },
-  { id: 10, image: imagen10, title: "Soluciones Empresariales",
-    description: "Tecnología orientada al crecimiento de las organizaciones." },
-];
+// Carrusel reutilizable: recibe la lista de imágenes por props (slides).
+const Carousel = ({ slides }) => {
+  const [indice, setIndice] = useState(0);
+  const actual = slides[indice];
 
-const Carousel = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const currentImage = images[currentIndex];
-
-  const previousImage = () => {
-    setCurrentIndex((previous) =>
-      previous === 0 ? images.length - 1 : previous - 1
-    );
+  const anterior = () => {
+    setIndice(indice === 0 ? slides.length - 1 : indice - 1);
   };
 
-  const nextImage = () => {
-    setCurrentIndex((previous) => (previous + 1) % images.length);
+  const siguiente = () => {
+    setIndice((indice + 1) % slides.length);
   };
 
+  // Cambia de imagen solo cada 5 segundos.
+  // Si el usuario navega a mano, el tiempo se reinicia (por eso depende de "indice").
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((previous) => (previous + 1) % images.length);
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, []);
+    const temporizador = setTimeout(siguiente, 5000);
+    return () => clearTimeout(temporizador);
+  });
 
   return (
-    <section className="container my-5">
-      <div className="text-center mb-4">
-        <h2 className="fw-bold">Conoce nuestro mundo tecnológico</h2>
-        <p className="text-secondary">
-          Innovación, conocimiento y soluciones para el futuro.
-        </p>
-      </div>
-
-      <div className="carousel-container">
+    <section className="mx-auto max-w-5xl px-4">
+      <div className="relative overflow-hidden rounded-xl border border-borde bg-tarjeta">
+        {/* La altura cambia según el tamaño de pantalla */}
         <img
-          src={currentImage.image}
-          alt={currentImage.title}
-          className="carousel-image"
+          src={actual.image}
+          alt={actual.title}
+          className="h-64 w-full object-cover sm:h-80 md:h-[28rem]"
         />
-        <div className="carousel-caption-custom">
-          <h3>{currentImage.title}</h3>
-          <p>{currentImage.description}</p>
-          <span>Imagen {currentIndex + 1} de {images.length}</span>
+
+        {/* Título y descripción sobre la imagen */}
+        <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/90 to-transparent px-12 pb-4 pt-12 text-white sm:px-16">
+          <h3 className="text-lg font-bold sm:text-2xl">{actual.title}</h3>
+          <p className="text-sm text-slate-200 sm:text-base">{actual.description}</p>
+          <span className="text-xs text-acento">
+            Imagen {indice + 1} de {slides.length}
+          </span>
         </div>
+
+        {/* Flechas */}
         <button
-          className="carousel-control previous"
-          onClick={previousImage}
+          onClick={anterior}
           aria-label="Imagen anterior"
+          className="absolute left-2 top-1/2 h-10 w-10 -translate-y-1/2 rounded-full bg-black/60 text-white hover:bg-acento hover:text-fondo"
         >
-          &#10094;
+          ❮
         </button>
         <button
-          className="carousel-control next"
-          onClick={nextImage}
+          onClick={siguiente}
           aria-label="Imagen siguiente"
+          className="absolute right-2 top-1/2 h-10 w-10 -translate-y-1/2 rounded-full bg-black/60 text-white hover:bg-acento hover:text-fondo"
         >
-          &#10095;
+          ❯
         </button>
       </div>
 
-      <div className="carousel-indicators-custom">
-        {images.map((image, index) => (
+      {/* Puntos para ir directo a una imagen */}
+      <div className="mt-4 flex justify-center gap-2">
+        {slides.map((slide, i) => (
           <button
-            key={image.id}
-            className={`indicator ${currentIndex === index ? "active" : ""}`}
-            onClick={() => setCurrentIndex(index)}
-            aria-label={`Mostrar imagen ${index + 1}`}
-            aria-current={currentIndex === index ? "true" : undefined}
-          />
+            key={slide.id}
+            onClick={() => setIndice(i)}
+            aria-label={`Mostrar imagen ${i + 1}`}
+            className={`h-3 rounded-full ${
+              i === indice ? "w-8 bg-acento" : "w-3 bg-slate-600"
+            }`}
+          ></button>
         ))}
       </div>
     </section>

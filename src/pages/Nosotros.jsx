@@ -1,36 +1,31 @@
 const Nosotros = () => {
   return (
-    <main className="container my-5">
-      <div className="row align-items-center">
-        <div className="col-md-12">
-          <h1 className="fw-bold mb-4">¿Quiénes somos?</h1>
-          <p className="lead">
-            Somos una empresa comprometida con la innovación,
-            el desarrollo tecnológico y la transformación digital.
-          </p>
-          <p>
-            Nuestro propósito es ofrecer soluciones tecnológicas
-            que permitan mejorar los procesos de las organizaciones,
-            promoviendo el uso de herramientas digitales y nuevas tecnologías.
+    <main className="mx-auto max-w-4xl px-4 py-12">
+      <h1 className="mb-4 text-3xl font-bold text-white">Nuestro estudio</h1>
+      <p className="text-lg text-slate-300">
+        Somos un equipo de desarrollo enfocado en crear interfaces
+        web claras, accesibles y mantenibles con React.
+      </p>
+      <p className="mt-3 text-slate-400">
+        Transformamos ideas en aplicaciones reales mediante componentes
+        reutilizables, navegación consistente y buenas prácticas de desarrollo.
+      </p>
+
+      {/* Dos tarjetas: una columna en celular, dos en pantallas medianas */}
+      <div className="mt-8 grid gap-6 md:grid-cols-2">
+        <div className="rounded-xl border border-borde bg-tarjeta p-6">
+          <h2 className="mb-2 text-xl font-semibold text-acento">Misión</h2>
+          <p className="text-slate-400">
+            Diseñar experiencias web útiles con React, cuidando el rendimiento,
+            la accesibilidad y la facilidad de mantenimiento.
           </p>
         </div>
-        <div className="col-md-6 mt-4">
-          <div className="card shadow-sm border-0 p-4">
-            <h3 className="text-primary">Misión</h3>
-            <p>
-              Ofrecer soluciones tecnológicas innovadoras que contribuyan
-              al crecimiento y desarrollo de nuestros clientes.
-            </p>
-          </div>
-        </div>
-        <div className="col-md-6 mt-4">
-          <div className="card shadow-sm border-0 p-4">
-            <h3 className="text-primary">Visión</h3>
-            <p>
-              Ser una empresa reconocida por su innovación, calidad
-              y compromiso con la transformación digital.
-            </p>
-          </div>
+        <div className="rounded-xl border border-borde bg-tarjeta p-6">
+          <h2 className="mb-2 text-xl font-semibold text-acento">Visión</h2>
+          <p className="text-slate-400">
+            Ser un estudio reconocido por construir aplicaciones React
+            claras, confiables y preparadas para seguir creciendo.
+          </p>
         </div>
       </div>
     </main>

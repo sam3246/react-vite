@@ -1,26 +1,31 @@
 const Contacto = () => {
   return (
-    <main className="container my-5">
-      <div className="text-center mb-5">
-        <h1 className="fw-bold">Contáctanos</h1>
-        <p className="lead text-secondary">
-          Estamos disponibles para atender tus inquietudes.
+    <main className="mx-auto max-w-2xl px-4 py-12">
+      <div className="mb-8 text-center">
+        <h1 className="text-3xl font-bold text-white">Contáctanos</h1>
+        <p className="mt-2 text-slate-400">
+          Cuéntanos tu idea y hablamos sobre cómo construirla con React.
         </p>
       </div>
-      <div className="row justify-content-center">
-        <div className="col-md-8">
-          <div className="card shadow-sm border-0">
-            <div className="card-body p-4">
-              <h4 className="mb-4">Información de contacto</h4>
-              <p><strong>Correo electrónico:</strong><br />
-                contacto@miempresa.com</p>
-              <p><strong>Teléfono:</strong><br />+57 300 000 0000</p>
-              <p><strong>Dirección:</strong><br />Medellín, Colombia</p>
-              <p><strong>Horario de atención:</strong><br />
-                Lunes a viernes, de 8:00 a. m. a 5:00 p. m.</p>
-            </div>
-          </div>
-        </div>
+
+      <div className="space-y-4 rounded-xl border border-borde bg-tarjeta p-6">
+        <h2 className="text-xl font-semibold text-white">Información de contacto</h2>
+        <p>
+          <strong className="text-acento">Correo electrónico:</strong><br />
+          hola@reactlab.dev
+        </p>
+        <p>
+          <strong className="text-acento">Teléfono:</strong><br />
+          +57 300 000 0000
+        </p>
+        <p>
+          <strong className="text-acento">Dirección:</strong><br />
+          Medellín, Colombia
+        </p>
+        <p>
+          <strong className="text-acento">Horario de atención:</strong><br />
+          Lunes a viernes, de 8:00 a. m. a 5:00 p. m.
+        </p>
       </div>
     </main>
   );
