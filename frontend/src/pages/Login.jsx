@@ -1,24 +1,19 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import AuthCard from "../components/AuthCard";
 import InputField from "../components/InputField";
 import Button from "../components/Button";
 
 const Login = () => {
-  // Un useState por cada dato del formulario
-  const [correo, setCorreo] = useState("");
-  const [contrasena, setContrasena] = useState("");
-  const [recordarme, setRecordarme] = useState(false);
-  const [mensaje, setMensaje] = useState("");
+  // Si había un correo guardado («Recordarme»), lo recuperamos al crear el estado.
+  // Así no hace falta useEffect: el valor inicial ya viene correcto en el primer render.
+  const [correoGuardado] = useState(() => localStorage.getItem("correoRecordado"));
 
-  // useEffect: al abrir la página, si había un correo guardado lo recuperamos
-  useEffect(() => {
-    const correoGuardado = localStorage.getItem("correoRecordado");
-    if (correoGuardado) {
-      setCorreo(correoGuardado);
-      setRecordarme(true);
-    }
-  }, []);
+  // Un useState por cada dato del formulario
+  const [correo, setCorreo] = useState(correoGuardado || "");
+  const [contrasena, setContrasena] = useState("");
+  const [recordarme, setRecordarme] = useState(Boolean(correoGuardado));
+  const [mensaje, setMensaje] = useState("");
 
   const manejarEnvio = (e) => {
     e.preventDefault(); // evita que la página se recargue

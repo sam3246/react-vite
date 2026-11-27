@@ -14,8 +14,8 @@ const redes = [
 const Footer = () => {
   return (
     <footer className="mt-16 border-t border-borde bg-tarjeta text-slate-300">
-      {/* Cuatro columnas en escritorio, una sola en celular */}
-      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 md:grid-cols-2 lg:grid-cols-4">
+      {/* Tres columnas en escritorio, una sola en celular */}
+      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 md:grid-cols-3">
         {/* 1. Logo, descripción y redes sociales */}
         <div>
           <Logo />
@@ -64,17 +64,6 @@ const Footer = () => {
               <MdLocationOn className="text-acento" /> Medellín, Colombia
             </li>
           </ul>
-        </div>
-
-        {/* 4. Ubicación con Google Maps (iframe) */}
-        <div>
-          <h3 className="mb-3 font-semibold text-white">Ubicación</h3>
-          <iframe
-            title="Ubicación de ReactLab en Google Maps"
-            src="https://www.google.com/maps?q=Medell%C3%ADn,+Colombia&output=embed"
-            className="h-40 w-full rounded-lg border-0"
-            loading="lazy"
-          ></iframe>
         </div>
       </div>
 
